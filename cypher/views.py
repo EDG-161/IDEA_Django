@@ -1,9 +1,17 @@
-from django.http import HttpResponse
-from . import logic
+#from . import logic
 from django.shortcuts import render
 
 
-# Create your views here.
+# Create your views here.  ta weno pues
 
-def index(request):
-    return HttpResponse("Home")
+def home(request):   
+    
+    return render(request, 'plano.html')
+
+def cifrar(request):   
+
+    return render(request, 'cifrar.html')
+
+def descifrar(request):  
+
+    return render(request, 'descifrar.html')

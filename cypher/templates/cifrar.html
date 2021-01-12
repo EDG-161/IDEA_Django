@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Cifrar{% endblock %}
+
+{% block content %}
+
+<div class="col s12 m7">
+    <h2 class="header">Ingresa el texto a cifrar</h2>
+    <div class="card">
+        <div class="card-stacked row">
+            <form action="" method="post" class="col s6">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="textarea1" class="materialize-textarea"></textarea>
+                            <label for="textarea1">Ingrese el texto</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Enviar
+                        <i class="material-icons right">send</i>
+                    </button>
+
+                </div>
+            </form>
+            <div class="col s6">
+                <div class="row">
+                    <div class="input-field col s10">
+                        <textarea id="textarea2" class="materialize-textarea"></textarea>
+                        <label for="textarea2">Texto cifrado</label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
