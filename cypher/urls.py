@@ -18,6 +18,6 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name="Home"),
-    path('cifrar', views.cifrar, name="Cifrar"),
-    path('descifrar', views.descifrar, name="Descifrar"),
+    path('cypher', views.cypher, name="cypher"),
+    path('decrypt', views.decrypt, name="decrypt"),
 ]

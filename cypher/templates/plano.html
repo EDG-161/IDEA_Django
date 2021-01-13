@@ -3,8 +3,105 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<h1>
-    <p>Operaciones modulares</p>
-    Bienvenido al cifrado IDEA
-</h1>
+    {% csrf_token %}
+<div class="col s12 m7" style="margin-top: 5rem">
+    <div class="card">
+        <div class="card-stacked row">
+            <form action="" method="post" class="col s6">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="textarea1" class="materialize-textarea"></textarea>
+                            <label for="textarea1">Ingrese el texto</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <textarea id="textarea2" class="materialize-textarea"></textarea>
+                            <label for="textarea2">Ingrese La clabe para cifrar</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <span>Resultado</span>
+                            <textarea id="textarea3" class="materialize-textarea"></textarea>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action">
+                    <span style="margin: 1rem"> ¿Qué quieres hacer?</span>
+                    <button class="btn waves-effect waves-light" type="button"  style="margin: 1rem" onclick="cypher()">Cifrar
+                        <i class="material-icons right">send</i>
+                    </button>
+                    <button class="btn waves-effect waves-light" type="button" name="action" style="margin: 1rem" onclick="decrypt()">Decifrar
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </form>
+            <div class="col s6">
+                <div class="row">
+                    <div class="input-field col s10">
+                        <label for="demo">Proceso</label>
+                        <textarea style="margin: 1rem; height: 100%" id="demo" cols=50 rows=100 ></textarea>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function cypher(){
+            const body = new FormData();
+            body.append("text", document.getElementById("textarea1").value)
+            body.append("password", document.getElementById("textarea2").value)
+            const req = new XMLHttpRequest();
+            req.open('POST', 'http://localhost:8000/cypher', true);
+
+            req.onreadystatechange = function (aEvt) {
+              if (req.readyState == 4) {
+                 if(req.status == 200) {
+                     const obj = JSON.parse(req.responseText)
+                     console.log(obj)
+                     const myJSON = JSON.stringify(obj,undefined, 2);
+                     document.getElementById("demo").value = myJSON;
+                     document.getElementById("textarea3").value = obj.cypher_text;
+
+                 }else{
+                  console.log("Error loading page\n");
+                 }
+              }else{
+
+              }
+            };
+            req.send(body)
+        }
+        function decrypt(){
+            const body = new FormData();
+            body.append("text", document.getElementById("textarea1").value)
+            body.append("password", document.getElementById("textarea2").value)
+            const req = new XMLHttpRequest();
+            req.open('POST', 'http://localhost:8000/decrypt', true);
+
+            req.onreadystatechange = function (aEvt) {
+              if (req.readyState == 4) {
+                 if(req.status == 200) {
+                     const obj = JSON.parse(req.responseText)
+                     console.log(obj)
+                     document.getElementById("demo").value = JSON.stringify(obj, undefined, 2);
+                     document.getElementById("textarea3").value = obj.decrypted_text;
+                 }else{
+                  console.log("Error loading page\n");
+                 }
+              }else{
+
+              }
+            };
+            req.send(body)
+        }
+    </script>
+
+    <script>
+        const obj = {"name": "John", "age": 30, "city": "New York"};
+        const myJSON = JSON.stringify(obj,undefined, 2);
+        document.getElementById("demo").innerHTML = myJSON;
+    </script>
+</div>
 {% endblock %} 
